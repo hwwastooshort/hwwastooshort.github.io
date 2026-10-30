@@ -3,10 +3,8 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
-// GitHub Pages:
-// - User site (repo "<username>.github.io"): site = 'https://<username>.github.io', base = '/'
-// - Project site (any other repo name):      site = 'https://<username>.github.io', base = '/<repo>'
-const SITE = 'https://hwwastooshort.github.io';
+// Served by GitHub Pages under a custom domain (see public/CNAME and the repo's Pages settings)
+const SITE = 'https://harveywirth.de';
 const BASE = '/';
 
 export default defineConfig({

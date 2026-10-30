@@ -26,6 +26,7 @@ const projects = defineCollection({
     repo: z.url().optional(),
     demo: z.url().optional(),
     featured: z.boolean().default(false),
+    wip: z.boolean().default(false),
   }),
 });
 

@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import type { Lang } from '../i18n/ui';
+import { useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
   projects: CollectionEntry<'projects'>[];
@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { projects, lang } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <ul class="plain list">
@@ -24,7 +25,7 @@ const { projects, lang } = Astro.props;
               data.title
             )}
           </h3>
-          <span class="muted small year">{data.year}</span>
+          <span class="muted small year">{data.wip ? t('projects.wip') : data.year}</span>
         </div>
         <p class="desc">{data.description[lang]}</p>
         <div class="meta small muted">

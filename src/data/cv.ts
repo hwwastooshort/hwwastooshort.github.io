@@ -23,7 +23,11 @@ export const experience: CvEntry[] = [
     title: { de: 'Software Engineer (Werkstudent)', en: 'Software Engineer (working student)' },
     org: 'EUROKEY Software GmbH',
     start: '2026-03',
-    stack: ['TypeScript', 'PostgreSQL', 'Docker'],
+    points: {
+      de: ['Backend-Entwicklung'],
+      en: ['Backend development'],
+    },
+    stack: ['TypeScript', 'PostgreSQL', 'Docker', 'GitLab'],
   },
   {
     title: {

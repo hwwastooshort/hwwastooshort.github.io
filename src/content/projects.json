@@ -1,5 +1,16 @@
 [
   {
+    "id": "pathfinder",
+    "title": "Pathfinder Campaign Manager",
+    "year": 2026,
+    "description": {
+      "de": "Web-App zum Managen von Pathfinder-1e-Kampagnen.",
+      "en": "Web app for managing Pathfinder 1e campaigns."
+    },
+    "stack": ["TypeScript", "PostgreSQL", "Docker"],
+    "wip": true
+  },
+  {
     "id": "capimate",
     "title": "Capimate",
     "year": 2025,

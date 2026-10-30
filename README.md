@@ -25,4 +25,4 @@ Blogposts mit `draft: true` erscheinen nur lokal.
 
 ## Deployment
 
-Jeder Push auf `main` baut die Seite über `.github/workflows/deploy.yml` und veröffentlicht sie unter https://hwwastooshort.github.io.
+Jeder Push auf `main` baut die Seite über `.github/workflows/deploy.yml` und veröffentlicht sie unter https://harveywirth.de.
