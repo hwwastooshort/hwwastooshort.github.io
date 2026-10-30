@@ -1,6 +1,7 @@
 ---
 import { site } from '../data/site';
 import { localizePath, useTranslations, type Lang } from '../i18n/ui';
+import { getPosts } from '../lib/content';
 
 interface Props {
   lang: Lang;
@@ -11,10 +12,12 @@ const { lang, alternatePath } = Astro.props;
 const t = useTranslations(lang);
 
 const home = localizePath('/', lang);
+// The blog link only shows up once there is a published post
+const hasPosts = (await getPosts(lang)).length > 0;
 const nav = [
   { href: home, label: t('nav.cv') },
   { href: localizePath('/projects', lang), label: t('nav.projects') },
-  { href: localizePath('/blog', lang), label: t('nav.blog') },
+  ...(hasPosts ? [{ href: localizePath('/blog', lang), label: t('nav.blog') }] : []),
   { href: localizePath('/about', lang), label: t('nav.about') },
 ];
 

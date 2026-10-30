@@ -63,10 +63,6 @@ export const education: CvEntry[] = [
     location: 'Saarbrücken-Dudweiler',
     start: '2019',
     end: '2022',
-    points: {
-      de: ['Notenschnitt 1,9', 'Leistungskurse Mathematik und Geschichte, Wahlpflichtfach Informatik'],
-      en: ['GPA 1.9 (German scale)', 'Advanced courses in mathematics and history, elective in computer science'],
-    },
   },
 ];
 
