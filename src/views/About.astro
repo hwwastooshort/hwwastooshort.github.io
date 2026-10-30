@@ -32,44 +32,28 @@ const t = useTranslations(lang);
     {
       lang === 'de' ? (
         <>
+          <p>Hallo,</p>
           <p>
-            Ich bin Harvey, Software Engineer bei EUROKEY Software und Masterstudent der Praktischen Informatik an der
-            HTW Saar in Saarbrücken. Meinen Bachelor habe ich dort 2026 mit 1,7 abgeschlossen, mit Schwerpunkten in
-            Softwareentwicklung, Automatisierung, CI/CD und Microservices.
+            ich bin Harvey, oft hw geschrieben, und bin Masterstudent und Software Engineer. Ich interessiere mich für
+            Softwareentwicklung, KI, Magic: The Gathering und meine Vögel. Momentan entwickle ich eine Seite zum
+            Managen von Pathfinder-1e-Kampagnen.
           </p>
+          <p>Mein Fokus im Studium liegt auf Software Engineering, KI und Automatisierung.</p>
           <p>
-            Am liebsten lerne ich, indem ich Dinge baue: eine Buchhaltungssoftware mit NestJS und Vue im Team, einen
-            Kalender für die Kommandozeile in Java oder eine kleine iOS-App zum Würfeln für Pen-&-Paper-Runden.
-            Nebenbei probiere ich gern neue Sprachen aus, zuletzt vor allem Go und Rust.
-          </p>
-          <p>
-            Vor dem Studium habe ich mehrere Jahre Nachhilfe in Mathematik, Informatik und Englisch gegeben. Dinge
-            verständlich zu erklären hilft mir bis heute, sauberen Code zu schreiben.
-          </p>
-          <p>Abseits vom Bildschirm bin ich ein großer Vogelfan.</p>
-          <p>
-            Mehr zu meinem Werdegang steht im <a href={localizePath('/cv', lang)}>Lebenslauf</a>.
+            Mehr Infos findet ihr im <a href={localizePath('/', lang)}>Lebenslauf</a>.
           </p>
         </>
       ) : (
         <>
+          <p>Hi,</p>
           <p>
-            I'm Harvey, a software engineer at EUROKEY Software and a master's student in Applied Computer Science at
-            HTW Saar in Saarbrücken. I completed my bachelor's there in 2026 with a final grade of 1.7, focusing on
-            software development, automation, CI/CD and microservices.
+            I'm Harvey, often written as hw, a master's student and software engineer. I'm interested in software
+            development, AI, Magic: The Gathering and my birds. Right now I'm building a site for managing Pathfinder
+            1e campaigns.
           </p>
+          <p>My focus at university is on software engineering, AI and automation.</p>
           <p>
-            I learn best by building things: bookkeeping software with NestJS and Vue as a team, a command-line
-            calendar in Java, or a small iOS app for rolling dice at tabletop sessions. On the side I like trying out
-            new languages, most recently Go and Rust.
-          </p>
-          <p>
-            Before university I spent several years tutoring mathematics, computer science and English. Explaining
-            things clearly still helps me write clean code.
-          </p>
-          <p>Away from the screen, I'm a big bird lover.</p>
-          <p>
-            More about my background is in my <a href={localizePath('/cv', lang)}>CV</a>.
+            You'll find more in my <a href={localizePath('/', lang)}>CV</a>.
           </p>
         </>
       )

@@ -23,7 +23,7 @@ export const experience: CvEntry[] = [
     title: { de: 'Software Engineer (Werkstudent)', en: 'Software Engineer (working student)' },
     org: 'EUROKEY Software GmbH',
     start: '2026-03',
-    stack: ['TypeScript', 'PostgreSQL', 'Docker', 'Claude'],
+    stack: ['TypeScript', 'PostgreSQL', 'Docker'],
   },
   {
     title: {
@@ -73,7 +73,7 @@ export const education: CvEntry[] = [
 export const skills: SkillGroup[] = [
   {
     label: { de: 'Schwerpunkte', en: 'Core stack' },
-    items: { de: ['TypeScript', 'PostgreSQL', 'Docker', 'KI-gestützte Entwicklung mit Claude'], en: ['TypeScript', 'PostgreSQL', 'Docker', 'AI-assisted development with Claude'] },
+    items: ['TypeScript', 'PostgreSQL', 'Docker'],
   },
   {
     label: { de: 'Weitere Programmiersprachen', en: 'Other programming languages' },

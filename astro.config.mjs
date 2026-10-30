@@ -13,6 +13,11 @@ export default defineConfig({
   site: SITE,
   base: BASE,
   trailingSlash: 'ignore',
+  // The CV is the home page now; keep the old URLs working
+  redirects: {
+    '/cv': '/',
+    '/en/cv': '/en',
+  },
   i18n: {
     locales: ['de', 'en'],
     defaultLocale: 'de',

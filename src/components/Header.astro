@@ -10,15 +10,19 @@ interface Props {
 const { lang, alternatePath } = Astro.props;
 const t = useTranslations(lang);
 
+const home = localizePath('/', lang);
 const nav = [
+  { href: home, label: t('nav.cv') },
   { href: localizePath('/projects', lang), label: t('nav.projects') },
   { href: localizePath('/blog', lang), label: t('nav.blog') },
-  { href: localizePath('/cv', lang), label: t('nav.cv') },
   { href: localizePath('/about', lang), label: t('nav.about') },
 ];
 
-const current = Astro.url.pathname.replace(/\/$/, '');
-const isActive = (href: string) => current === href || current.startsWith(`${href}/`);
+const trim = (path: string) => path.replace(/\/$/, '');
+const current = trim(Astro.url.pathname);
+// The home link is only active on the home page itself, not on every subpage
+const isActive = (href: string) =>
+  current === trim(href) || (href !== home && current.startsWith(`${trim(href)}/`));
 ---
 
 <header class="container header">
