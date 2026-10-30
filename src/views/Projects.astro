@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectList from '../components/ProjectList.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/ui';
+import { getProjects } from '../lib/content';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const projects = await getProjects();
+---
+
+<Base title={t('projects.title')} description={t('projects.intro')}>
+  <header class="page-header">
+    <h1>{t('projects.title')}</h1>
+    <p>{t('projects.intro')}</p>
+  </header>
+  <ProjectList projects={projects} lang={lang} />
+</Base>

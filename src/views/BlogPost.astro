@@ -1,0 +1,52 @@
+---
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { formatDate, getLangFromUrl, localizePath, useTranslations } from '../i18n/ui';
+import { getPosts, type Post } from '../lib/content';
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const { Content } = await render(post);
+
+// Link to the translation if it exists, otherwise to the other language's blog index
+const otherLang = lang === 'de' ? 'en' : 'de';
+const translated = (await getPosts(otherLang)).some((p) => p.slug === post.slug);
+const alternatePath = localizePath(translated ? `/blog/${post.slug}` : '/blog', otherLang);
+---
+
+<Base title={post.data.title} description={post.data.description} alternatePath={alternatePath}>
+  <article>
+    <header class="page-header">
+      <h1>{post.data.title}</h1>
+      <p>
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date, lang)}</time>
+      </p>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+  <p class="back small">
+    <a href={localizePath('/blog', lang)}>← {t('blog.back')}</a>
+  </p>
+</Base>
+
+<style>
+  .back {
+    margin-top: 4rem;
+  }
+
+  .back a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .back a:hover {
+    color: var(--text);
+  }
+</style>

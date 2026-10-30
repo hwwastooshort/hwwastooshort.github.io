@@ -1,0 +1,131 @@
+---
+import Base from '../layouts/Base.astro';
+import { education, experience, skills, type CvEntry } from '../data/cv';
+import { site } from '../data/site';
+import { getLangFromUrl, useTranslations } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const month = (date: string) =>
+  date.length === 4
+    ? date
+    : new Date(`${date}-01`).toLocaleDateString(lang === 'de' ? 'de-DE' : 'en-US', { month: 'short', year: 'numeric' });
+const period = (e: CvEntry) => `${month(e.start)} – ${e.end ? month(e.end) : t('cv.present')}`;
+const where = (e: CvEntry) => [e.org, e.location].filter(Boolean).join(', ');
+
+const groups = [
+  { title: t('cv.education'), entries: education },
+  { title: t('cv.experience'), entries: experience },
+];
+const pdf = site.cvPdf ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${site.cvPdf}` : null;
+---
+
+<Base title={t('cv.title')}>
+  <header class="page-header">
+    <h1>{t('cv.title')}</h1>
+    {
+      pdf && (
+        <p>
+          <a href={pdf} download>
+            {t('cv.download')}
+          </a>
+        </p>
+      )
+    }
+  </header>
+
+  {
+    groups.map((group) => (
+      <section class="block">
+        <h2 class="section-title">{group.title}</h2>
+        <ul class="plain">
+          {group.entries.map((entry) => (
+            <li class="entry">
+              <p class="period muted small">{period(entry)}</p>
+              <div>
+                <h3>{entry.title[lang]}</h3>
+                {where(entry) && <p class="muted">{where(entry)}</p>}
+                {entry.points && (
+                  <ul class="points">
+                    {entry.points[lang].map((point) => (
+                      <li>{point}</li>
+                    ))}
+                  </ul>
+                )}
+                {entry.stack && <p class="stack muted small">{entry.stack.join(' · ')}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+
+  <section class="block">
+    <h2 class="section-title">{t('cv.skills')}</h2>
+    <dl class="skills">
+      {
+        skills.map((group) => (
+          <div class="entry">
+            <dt class="muted small">{group.label[lang]}</dt>
+            <dd>{(Array.isArray(group.items) ? group.items : group.items[lang]).join(', ')}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+</Base>
+
+<style>
+  .block + .block {
+    margin-top: 3.5rem;
+  }
+
+  .entry {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 0.25rem 1.5rem;
+  }
+
+  .entry + .entry {
+    margin-top: 1.75rem;
+  }
+
+  .period,
+  dt {
+    padding-top: 0.15rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .points {
+    margin: 0.5rem 0 0;
+    padding-left: 1.1em;
+  }
+
+  .points li + li {
+    margin-top: 0.25rem;
+  }
+
+  .stack {
+    margin-top: 0.5rem;
+  }
+
+  .skills {
+    margin: 0;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  .skills .entry + .entry {
+    margin-top: 0.75rem;
+  }
+
+  @media (max-width: 560px) {
+    .entry {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

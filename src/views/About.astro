@@ -1,0 +1,90 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import photo from '../assets/harvey.jpg';
+import { site } from '../data/site';
+import { getLangFromUrl, localizePath, useTranslations } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Base title={t('about.title')}>
+  <header class="page-header">
+    <h1>{t('about.title')}</h1>
+  </header>
+
+  <Picture
+    class="photo"
+    src={photo}
+    alt={site.name}
+    width={480}
+    height={600}
+    fit="cover"
+    position="bottom"
+    widths={[240, 480]}
+    sizes="240px"
+    formats={['avif', 'webp']}
+    loading="eager"
+  />
+
+  <div class="prose">
+    {
+      lang === 'de' ? (
+        <>
+          <p>
+            Ich bin Harvey, Software Engineer bei EUROKEY Software und Masterstudent der Praktischen Informatik an der
+            HTW Saar in Saarbrücken. Meinen Bachelor habe ich dort 2026 mit 1,7 abgeschlossen, mit Schwerpunkten in
+            Softwareentwicklung, Automatisierung, CI/CD und Microservices.
+          </p>
+          <p>
+            Am liebsten lerne ich, indem ich Dinge baue: eine Buchhaltungssoftware mit NestJS und Vue im Team, einen
+            Kalender für die Kommandozeile in Java oder eine kleine iOS-App zum Würfeln für Pen-&-Paper-Runden.
+            Nebenbei probiere ich gern neue Sprachen aus, zuletzt vor allem Go und Rust.
+          </p>
+          <p>
+            Vor dem Studium habe ich mehrere Jahre Nachhilfe in Mathematik, Informatik und Englisch gegeben. Dinge
+            verständlich zu erklären hilft mir bis heute, sauberen Code zu schreiben.
+          </p>
+          <p>Abseits vom Bildschirm bin ich ein großer Vogelfan.</p>
+          <p>
+            Mehr zu meinem Werdegang steht im <a href={localizePath('/cv', lang)}>Lebenslauf</a>.
+          </p>
+        </>
+      ) : (
+        <>
+          <p>
+            I'm Harvey, a software engineer at EUROKEY Software and a master's student in Applied Computer Science at
+            HTW Saar in Saarbrücken. I completed my bachelor's there in 2026 with a final grade of 1.7, focusing on
+            software development, automation, CI/CD and microservices.
+          </p>
+          <p>
+            I learn best by building things: bookkeeping software with NestJS and Vue as a team, a command-line
+            calendar in Java, or a small iOS app for rolling dice at tabletop sessions. On the side I like trying out
+            new languages, most recently Go and Rust.
+          </p>
+          <p>
+            Before university I spent several years tutoring mathematics, computer science and English. Explaining
+            things clearly still helps me write clean code.
+          </p>
+          <p>Away from the screen, I'm a big bird lover.</p>
+          <p>
+            More about my background is in my <a href={localizePath('/cv', lang)}>CV</a>.
+          </p>
+        </>
+      )
+    }
+  </div>
+</Base>
+
+<style>
+  .photo {
+    width: 15rem;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    margin-bottom: 2.5rem;
+    border-radius: 4px;
+  }
+</style>

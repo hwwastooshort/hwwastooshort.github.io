@@ -1,0 +1,106 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+  lang: Lang;
+}
+
+const { projects, lang } = Astro.props;
+---
+
+<ul class="plain list">
+  {
+    projects.map(({ data }) => (
+      <li class="item">
+        <div class="head">
+          <h3>
+            {data.repo || data.demo ? (
+              <a href={data.demo ?? data.repo} target="_blank" rel="noopener">
+                {data.title}
+              </a>
+            ) : (
+              data.title
+            )}
+          </h3>
+          <span class="muted small year">{data.year}</span>
+        </div>
+        <p class="desc">{data.description[lang]}</p>
+        <div class="meta small muted">
+          <span>{data.stack.join(' · ')}</span>
+          {(data.repo || data.demo) && (
+            <span class="links">
+              {data.repo && (
+                <a href={data.repo} target="_blank" rel="noopener">
+                  Code
+                </a>
+              )}
+              {data.demo && (
+                <a href={data.demo} target="_blank" rel="noopener">
+                  Demo
+                </a>
+              )}
+            </span>
+          )}
+        </div>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .item {
+    padding-block: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .item:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  h3 a {
+    text-decoration: none;
+  }
+
+  h3 a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+  }
+
+  .year {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .desc {
+    margin-top: 0.25rem;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .links a {
+    color: var(--muted);
+  }
+
+  .links a:hover {
+    color: var(--text);
+  }
+</style>

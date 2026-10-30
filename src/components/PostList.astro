@@ -1,0 +1,53 @@
+---
+import { formatDate, localizePath, type Lang } from '../i18n/ui';
+import type { Post } from '../lib/content';
+
+interface Props {
+  posts: Post[];
+  lang: Lang;
+}
+
+const { posts, lang } = Astro.props;
+---
+
+<ul class="plain list">
+  {
+    posts.map((post) => (
+      <li>
+        <a class="row" href={localizePath(`/blog/${post.slug}`, lang)}>
+          <span class="title">{post.data.title}</span>
+          <time class="muted small" datetime={post.data.date.toISOString()}>
+            {formatDate(post.data.date, lang, { month: 'short' })}
+          </time>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.75rem;
+    border-top: 1px solid var(--line);
+    text-decoration: none;
+  }
+
+  li:last-child .row {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .row:hover .title {
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 0.2em;
+  }
+
+  time {
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+</style>

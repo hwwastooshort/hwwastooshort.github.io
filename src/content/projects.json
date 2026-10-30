@@ -1,0 +1,38 @@
+[
+  {
+    "id": "capimate",
+    "title": "Capimate",
+    "year": 2025,
+    "description": {
+      "de": "Software zum Verwalten von Transaktionen und für die private Buchhaltung: REST-API mit Web-Frontend. Teamprojekt im Studium.",
+      "en": "Software for managing transactions and personal bookkeeping: a REST API with a web frontend. Team project at university."
+    },
+    "stack": ["TypeScript", "NestJS", "Vue.js", "PostgreSQL", "Playwright", "Docker"],
+    "repo": "https://github.com/hwwastooshort/Capimate-Fork",
+    "featured": true
+  },
+  {
+    "id": "javender",
+    "title": "Javender",
+    "year": 2025,
+    "description": {
+      "de": "Interaktiver Kalender und Terminmanager für die Kommandozeile.",
+      "en": "Interactive calendar and appointment manager for the command line."
+    },
+    "stack": ["Java", "Maven", "SQLite", "jOOQ", "JUnit 5"],
+    "repo": "https://github.com/hwwastooshort/Javender",
+    "featured": true
+  },
+  {
+    "id": "custom-dice-roll",
+    "title": "CustomDiceRoll",
+    "year": 2025,
+    "description": {
+      "de": "iOS-App, die Würfelwürfe für Pen-&-Paper-Rollenspiele wie D&D und Pathfinder interpretiert und simuliert.",
+      "en": "iOS app that interprets and simulates dice rolls for tabletop RPGs like D&D and Pathfinder."
+    },
+    "stack": ["Swift", "SwiftUI"],
+    "repo": "https://github.com/hwwastooshort/CustomDiceRoll",
+    "featured": true
+  }
+]

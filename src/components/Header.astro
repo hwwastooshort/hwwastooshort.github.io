@@ -1,0 +1,178 @@
+---
+import { site } from '../data/site';
+import { localizePath, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  alternatePath: string;
+}
+
+const { lang, alternatePath } = Astro.props;
+const t = useTranslations(lang);
+
+const nav = [
+  { href: localizePath('/projects', lang), label: t('nav.projects') },
+  { href: localizePath('/blog', lang), label: t('nav.blog') },
+  { href: localizePath('/cv', lang), label: t('nav.cv') },
+  { href: localizePath('/about', lang), label: t('nav.about') },
+];
+
+const current = Astro.url.pathname.replace(/\/$/, '');
+const isActive = (href: string) => current === href || current.startsWith(`${href}/`);
+---
+
+<header class="container header">
+  <a class="name" href={localizePath('/', lang)}>{site.name}</a>
+  <nav aria-label="Main">
+    <ul class="plain nav">
+      {
+        nav.map((item) => (
+          <li>
+            <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <div class="controls">
+    <a class="lang" href={alternatePath} hreflang={lang === 'de' ? 'en' : 'de'} title={t('lang.switch')}>
+      {lang === 'de' ? 'EN' : 'DE'}
+    </a>
+    <button class="theme" type="button" aria-label={t('theme.toggle')} title={t('theme.toggle')}>
+      <svg class="sun" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+        <circle cx="8" cy="8" r="3.25" fill="none" stroke="currentColor" stroke-width="1.25"></circle>
+        <path
+          d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.89 11.89l1.06 1.06M3.05 12.95l1.06-1.06M11.89 4.11l1.06-1.06"
+          stroke="currentColor"
+          stroke-width="1.25"
+          stroke-linecap="round"></path>
+      </svg>
+      <svg class="moon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+        <path
+          d="M13.5 9.6A5.75 5.75 0 0 1 6.4 2.5a5.75 5.75 0 1 0 7.1 7.1Z"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.25"
+          stroke-linejoin="round"></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<script>
+  const root = document.documentElement;
+  const button = document.querySelector<HTMLButtonElement>('.theme');
+
+  button?.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {}
+  });
+
+  // Follow the system setting as long as the visitor has not chosen manually
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    let stored = null;
+    try {
+      stored = localStorage.getItem('theme');
+    } catch {}
+    if (!stored) root.dataset.theme = e.matches ? 'dark' : 'light';
+  });
+</script>
+
+<style>
+  .header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 4rem;
+    font-size: 0.9375rem;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .name {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-right: auto;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+  }
+
+  .nav a,
+  .lang {
+    color: var(--muted);
+  }
+
+  .nav a:hover,
+  .nav a[aria-current='page'],
+  .lang:hover {
+    color: var(--text);
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .lang {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .theme {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    margin-right: -0.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: color 0.15s ease;
+  }
+
+  .theme:hover {
+    color: var(--text);
+  }
+
+  .moon {
+    display: none;
+  }
+
+  :global([data-theme='dark']) .sun {
+    display: none;
+  }
+
+  :global([data-theme='dark']) .moon {
+    display: block;
+  }
+
+  @media (max-width: 560px) {
+    .header {
+      padding-top: 1.5rem;
+      padding-bottom: 3rem;
+    }
+
+    nav {
+      order: 3;
+      width: 100%;
+    }
+  }
+</style>

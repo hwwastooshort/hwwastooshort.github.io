@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import { getLangFromUrl, localizePath, useTranslations } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Base title={t('notFound.title')}>
+  <header class="page-header">
+    <h1>{t('notFound.title')}</h1>
+    <p>{t('notFound.text')}</p>
+  </header>
+  <p><a href={localizePath('/', lang)}>{t('notFound.home')}</a></p>
+</Base>
