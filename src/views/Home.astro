@@ -19,9 +19,31 @@ const groups = [
   { title: t('cv.experience'), entries: experience },
 ];
 const pdf = site.cvPdf ? `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${site.cvPdf}` : null;
+
+// Structured data so search engines can tie the name to this site and the linked profiles
+const home = new URL(import.meta.env.BASE_URL, Astro.site).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebSite', '@id': `${home}#website`, url: home, name: site.name, inLanguage: lang },
+    {
+      '@type': 'Person',
+      '@id': `${home}#person`,
+      name: site.name,
+      url: home,
+      image: new URL('og.png', home).href,
+      jobTitle: 'Software Engineer',
+      worksFor: { '@type': 'Organization', name: 'EUROKEY Software' },
+      alumniOf: { '@type': 'CollegeOrUniversity', name: 'HTW Saar' },
+      sameAs: site.links.map((link) => link.href),
+    },
+  ],
+};
 ---
 
 <Base>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
   <header class="page-header intro">
     <h1>{site.name}</h1>
     <p class="role">{site.role[lang]}</p>

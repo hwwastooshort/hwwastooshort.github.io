@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://harveywirth.de/sitemap-index.xml
