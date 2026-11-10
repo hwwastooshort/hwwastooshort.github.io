@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
@@ -21,6 +21,14 @@ export default defineConfig({
     defaultLocale: 'de',
     routing: { prefixDefaultLocale: false },
   },
+  // Personal details for the legal notice: kept out of the repo, set in .env locally and as GitHub secrets for deploys
+  env: {
+    schema: {
+      IMPRESSUM_STREET: envField.string({ context: 'server', access: 'public' }),
+      IMPRESSUM_CITY: envField.string({ context: 'server', access: 'public' }),
+      IMPRESSUM_PHONE: envField.string({ context: 'server', access: 'public' }),
+    },
+  },
   markdown: {
     shikiConfig: {
       themes: { light: 'github-light', dark: 'github-dark-dimmed' },
@@ -31,6 +39,7 @@ export default defineConfig({
     mdx(),
     sitemap({
       i18n: { defaultLocale: 'de', locales: { de: 'de-DE', en: 'en-US' } },
+      filter: (page) => !page.includes('/impressum'),
     }),
   ],
 });

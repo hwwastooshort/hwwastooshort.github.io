@@ -1,0 +1,51 @@
+---
+import { IMPRESSUM_CITY, IMPRESSUM_PHONE, IMPRESSUM_STREET } from 'astro:env/server';
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+import { getLangFromUrl, useTranslations } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Base title={t('legal.title')}>
+  <meta slot="head" name="robots" content="noindex" />
+
+  <header class="page-header">
+    <h1>{t('legal.title')}</h1>
+  </header>
+
+  <div class="prose">
+    <h2>{lang === 'de' ? 'Angaben gemäß § 5 DDG' : 'Information pursuant to § 5 DDG (German Digital Services Act)'}</h2>
+    <p>
+      {site.name}<br />
+      {IMPRESSUM_STREET}<br />
+      {IMPRESSUM_CITY}
+      {lang === 'en' && (
+        <>
+          <br />
+          Germany
+        </>
+      )}
+    </p>
+
+    <h2>{lang === 'de' ? 'Kontakt' : 'Contact'}</h2>
+    <p>
+      E-Mail: <a href={`mailto:${site.email}`}>{site.email}</a><br />
+      {lang === 'de' ? 'Telefon' : 'Phone'}: <a href={`tel:${IMPRESSUM_PHONE.replaceAll(' ', '')}`}>{IMPRESSUM_PHONE}</a>
+    </p>
+
+    <h2>
+      {
+        lang === 'de'
+          ? 'Inhaltlich verantwortlich nach § 18 Abs. 2 MStV'
+          : 'Responsible for content pursuant to § 18(2) MStV (German Interstate Media Treaty)'
+      }
+    </h2>
+    <p>
+      {site.name}<br />
+      {IMPRESSUM_STREET}<br />
+      {IMPRESSUM_CITY}
+    </p>
+  </div>
+</Base>

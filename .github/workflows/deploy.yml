@@ -22,6 +22,10 @@ jobs:
       - uses: withastro/action@v5
         with:
           node-version: 24
+        env:
+          IMPRESSUM_STREET: ${{ secrets.IMPRESSUM_STREET }}
+          IMPRESSUM_CITY: ${{ secrets.IMPRESSUM_CITY }}
+          IMPRESSUM_PHONE: ${{ secrets.IMPRESSUM_PHONE }}
 
   deploy:
     needs: build
